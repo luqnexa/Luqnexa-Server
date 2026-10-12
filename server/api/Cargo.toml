@@ -1,0 +1,31 @@
+[package]
+name = "luqnexa-server"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+nextime-security.workspace = true
+nextime-update.workspace = true
+nextime-memory.workspace = true
+nextime-ai.workspace = true
+nextime-core.workspace = true
+nexc-max.workspace = true
+nexc-lite.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+hex.workspace = true
+axum = "0.8.9"
+tokio = { version = "1.47", features = ["rt-multi-thread", "macros", "net", "signal", "fs"] }
+
+tokio-util = { version = "0.7", features = ["io"] }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
+tempfile = "3.15"
+
+[[bench]]
+name = "services"
+harness = false

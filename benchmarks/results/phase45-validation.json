@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-12",
+  "platform": "windows-x86_64",
+  "rust": "1.98.1",
+  "fmt_check": "passed",
+  "workspace_clippy_all_targets_deny_warnings": "passed",
+  "workspace_tests": "passed; existing environment-dependent ignored tests were not executed",
+  "new_tests": 16,
+  "changed_update_and_server_tests_after_final_edits": "passed",
+  "workspace_release_build": "passed; existing MSVC import-library linker message warning",
+  "rust_1_85_workspace_check_locked": "passed",
+  "windows_end_to_end": {
+    "script": "scripts/test-phase45.ps1",
+    "passed": true,
+    "dictionary_full": true,
+    "dictionary_delta": true,
+    "rollback": true,
+    "review_queue": true,
+    "offline_drafts": true,
+    "encrypted_memory": true,
+    "report": ".cache/phase45/a20f058d5aa74a1fb6e68752fd1e7399/report.json",
+    "ime_installed": false
+  },
+  "remote_ci_run": "not performed",
+  "a13_100_million_entries": "not measured",
+  "meltype_comparison": "not measured"
+}

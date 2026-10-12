@@ -1,9 +1,5 @@
 # Public source boundary
 
-Published source includes the implemented code, reproducible build inputs, tests and original license notices. Private credentials, signing keys, personal dictionaries, input/conversation history, downloaded corpora, unreviewed training checkpoints and local settings are excluded. They were not uploaded to a separate private repository.
+Implemented source, tests, synthetic lessons and existing attributed public-source model inputs only. Credentials, signing keys, personal dictionaries, input/conversation history, downloaded corpora, local configuration and unaccepted experimental checkpoints are excluded.
 
-Public statistical models in Luqnexa-AI were built from the attributed public sources identified in models/. Downloaded neural models and executable runtimes are fetched separately from pinned official sources and checksum-verified.
-
-Technical documents retain historical monorepo paths and measurements. In the split repositories, shared dictionary types live in NEXC, AI/ranking code and training scripts live in Luqnexa-AI, and the public collector lives in Luqnexa-Server. The IME and collector pin those components through Git submodules. The current entry point is each repository's README.
-
-The dictionary distribution API and free-form AI text generation are not implemented. No complete-training, general-accuracy, 100-million-entry or iPhone-SE performance claim is made.
+Current Phase 4 distribution is a loopback prototype in Luqnexa-Server. Memory requires consent and host-supplied keys. Draft generation uses templates and local ranking, not a general-purpose LLM. No full-training, broad-accuracy, 100-million-entry or iPhone-SE performance claim is made. Technical documents may retain historical monorepo paths; shared components are pinned Git submodules.

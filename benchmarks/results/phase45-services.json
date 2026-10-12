@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-12",
+  "os": "windows",
+  "arch": "x86_64",
+  "cpu": "AMD Ryzen 5 5600H with Radeon Graphics",
+  "cores": 6,
+  "logical_processors": 12,
+  "rust": "1.98.1",
+  "profile": "bench optimized",
+  "command": "cargo bench -p luqnexa-server --bench services --locked",
+  "scope": "local synthetic services, 5 warmups and 100 samples per operation; not IME conversion, A13 or 100-million-entry measurements",
+  "unit": "ns",
+  "results": [
+    {"name": "sha256_32kib", "samples": 100, "p50": 33900, "p95": 34400, "max": 46300},
+    {"name": "ed25519_manifest_verify", "samples": 100, "p50": 72500, "p95": 82800, "max": 205500},
+    {"name": "encrypted_memory_save_get_with_fsync", "samples": 100, "p50": 13768900, "p95": 16897200, "max": 22954200},
+    {"name": "offline_absence_drafts", "samples": 100, "p50": 72600, "p95": 98300, "max": 154800}
+  ]
+}

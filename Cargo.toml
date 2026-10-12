@@ -1,0 +1,29 @@
+[workspace]
+resolver = "2"
+members = ["server/api","crates/nextime-security","crates/nextime-update","crates/nextime-memory"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "AGPL-3.0-only"
+
+[workspace.dependencies]
+nextime-security = { path = "crates/nextime-security" }
+nextime-update = { path = "crates/nextime-update" }
+nextime-memory = { path = "crates/nextime-memory" }
+nextime-core = { path = "modules/Luqnexa/crates/nextime-core" }
+nextime-parser = { path = "modules/Luqnexa/crates/nextime-parser" }
+nextime-convert = { path = "modules/Luqnexa/crates/nextime-convert" }
+nextime-cli = { path = "modules/Luqnexa/crates/nextime-cli" }
+nextime-ffi = { path = "modules/Luqnexa/crates/nextime-ffi" }
+nexc-core = { path = "modules/Luqnexa/modules/NEXC/crates/nexc-core" }
+nexc-lite = { path = "modules/Luqnexa/modules/NEXC/crates/nexc-lite" }
+nexc-max = { path = "modules/Luqnexa/modules/NEXC/crates/nexc-max" }
+nextime-dict = { path = "modules/Luqnexa/modules/NEXC/crates/nextime-dict" }
+nextime-ai = { path = "modules/Luqnexa/modules/Luqnexa-AI/crates/nextime-ai" }
+nextime-ranker = { path = "modules/Luqnexa/modules/Luqnexa-AI/crates/nextime-ranker" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "=1.0.140"
+sha2 = "0.10.9"
+hex = "0.4.3"

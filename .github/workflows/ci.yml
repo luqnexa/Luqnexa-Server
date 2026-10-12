@@ -4,7 +4,11 @@ permissions:
   contents: read
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -13,3 +17,14 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/test-auto-train-aozora.py
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - run: cargo test --workspace --locked
+      - run: cargo build --workspace --release --locked
+      - name: Signed dictionary update and offline assistance demo
+        if: runner.os == 'Windows'
+        run: ./scripts/test-phase45.ps1
+      - run: cargo bench -p luqnexa-server --bench services --locked

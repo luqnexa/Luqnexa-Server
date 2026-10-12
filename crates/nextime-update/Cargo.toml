@@ -1,0 +1,21 @@
+[package]
+name = "nextime-update"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+nextime-security.workspace = true
+nexc-lite.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+hex.workspace = true
+
+[dev-dependencies]
+tempfile = "3.15"
+nexc-max.workspace = true
+nextime-dict.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Storage_FileSystem", "Win32_Foundation"] }

@@ -1,19 +1,23 @@
 # Luqnexa-Server
 
-辞書配信・新語収集の開発用リポジトリです。現在の実装は公開文章からの学習用データ収集スクリプトだけです。Rust/Tokio/AxumのAPIサーバー、PostgreSQL、Redis Streams、R2、認証・レート制限・監査ログ、Ed25519署名更新は**未実装**です。運用サーバーとして起動・公開できる状態ではありません。
+辞書配信・公開文章収集のRust/Axum開発用プロトタイプです。
 
-実装済みの青空文庫収集は、公式メタデータによる対象選択、順次ダウンロード、サイズ制限、前処理、重複除去、著者単位の評価分割、SQLite再開管理、SHA-256、原子的なローカル学習成果物の保存です。メタデータ条件に合わない作品や失敗作品を、成功した学習として扱いません。端末の入力履歴を収集しません。処理結果を稼働中IMEへ自動適用しません。
+実装済み: Ed25519署名付きManifest、SHA-256検証、辞書ストリーム配信、差分更新、原子的切り替え、rollback、同意付き新語投稿、Bearer認証、入力上限、レート制限、監査ログ。投稿は審査待ちへ保存し自動公開しません。
+
+共有基盤として暗号化Memoryと欠席連絡の下書きCLIを提供します。文章生成は定型文と端末内候補ランキングであり、汎用LLMの文章理解ではありません。
 
 ```sh
 git clone --recurse-submodules https://github.com/Luqnexa/Luqnexa-Server.git
 cd Luqnexa-Server
-python scripts/test-auto-train-aozora.py
-# 明示的に公開文章を取得する場合だけ実行:
-python scripts/auto-train-aozora.py --download
+cargo test --workspace --locked
+cargo run -p luqnexa-server -- assist 先生 明日 体調不良
+cargo bench -p luqnexa-server --bench services --locked
 ```
 
-学習処理と再現用データは固定版の `modules/Luqnexa-AI` にあります。成果物・取得キャッシュはその `.cache` 内へ保存され、Gitへ追加しません。全対象の学習完了を保証するリポジトリではありません。
+PowerShell 7: `./scripts/test-phase45.ps1` で独立した試験Storeへの完全版配信・差分適用・rollbackを確認します。稼働中IMEは変更しません。
 
-今後のAPI案: `/api/v1/manifest`、`/dictionaries`、`/updates`、`/words/submit`、`/releases`。ユーザー登録語の送信は明示許可された語だけを対象とします。文章全文・パスワード・会話履歴を自動送信しません。
+loopback HTTP限定。公開HTTPS、PostgreSQL、Redis Streams、R2、OS鍵保管、クラッシュ後の自動復旧、IME接続は未実装です。差分生成64MiB・挿入16MiBの上限があります。[実装と制約](docs/phase4-5.md)を参照してください。
 
-ソースはAGPL-3.0-only。公開鍵以外の署名鍵・クラウド認証情報・DBデータ・個人辞書はこのリポジトリに含めません。
+青空文庫の収集スクリプトも保持しています。作品のライセンス・取得失敗を区別し、全対象の学習完了を保証しません。入力履歴は収集しません。
+
+GNU AGPL-3.0-only。鍵、トークン、会話履歴、ダウンロードしたコーパス、未採用モデルは公開しません。
