@@ -15,7 +15,7 @@ import urllib.parse
 import urllib.request
 import zipfile
 
-spec = importlib.util.spec_from_file_location('literature', Path(__file__).with_name('train-literature.py'))
+spec = importlib.util.spec_from_file_location('literature', Path(__file__).resolve().parents[1] / 'modules/Luqnexa-AI/scripts/train-literature.py')
 lit = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(lit)
 CACHE = lit.ROOT / '.cache/aozora-auto'
