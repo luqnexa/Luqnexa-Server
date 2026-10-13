@@ -27,3 +27,5 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "=1.0.140"
 sha2 = "0.10.9"
 hex = "0.4.3"
+
+luqnexa-ml = { path = "modules/Luqnexa/modules/Luqnexa-AI/crates/luqnexa-ml" }

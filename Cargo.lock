@@ -467,6 +467,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f9f8bd3e56ce4dfc153cf470fffbfa98c7620958b312ca5c3a4b8d5181fd13c6"
 
 [[package]]
+name = "luqnexa-ml"
+version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "luqnexa-server"
 version = "0.1.0"
 dependencies = [
@@ -545,8 +553,10 @@ dependencies = [
 name = "nextime-ai"
 version = "0.1.0"
 dependencies = [
+ "luqnexa-ml",
  "nextime-ranker",
  "serde_json",
+ "sha2",
 ]
 
 [[package]]
@@ -561,6 +571,9 @@ dependencies = [
 name = "nextime-core"
 version = "0.1.0"
 dependencies = [
+ "luqnexa-ml",
+ "nexc-lite",
+ "nexc-max",
  "nextime-ai",
  "nextime-convert",
  "nextime-dict",
