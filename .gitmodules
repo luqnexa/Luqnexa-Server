@@ -1,6 +1,3 @@
-[submodule "modules/Luqnexa-AI"]
-	path = modules/Luqnexa-AI
-	url = https://github.com/Luqnexa/Luqnexa-AI.git
 [submodule "modules/Luqnexa"]
 	path = modules/Luqnexa
 	url = https://github.com/Luqnexa/Luqnexa.git

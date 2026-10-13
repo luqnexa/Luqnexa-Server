@@ -7,7 +7,7 @@ use std::{
     env,
     fs::{self, OpenOptions},
     io::{self, Write},
-    path::{Path, PathBuf},
+    path::Path,
 };
 fn public(path: &str) -> Result<VerifyingKey, Box<dyn std::error::Error>> {
     let raw: [u8; 32] = fs::read(path)?
@@ -155,53 +155,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             Store::new(&args[1], public(&args[2])?)?.rollback()?;
             println!("Isolated store rolled back; replay high-water mark retained.");
         }
-        "assist" if (3..=4).contains(&args.len()) => {
-            use nextime_ai::assist::{Assistant, DeviceBudget};
-            let mut ai = Assistant::new(DeviceBudget::Low);
-            ai.enable(true);
-            for d in ai
-                .absence_email(
-                    &args[1],
-                    &args[2],
-                    args.get(3).map(String::as_str).unwrap_or(""),
-                    "",
-                    false,
-                )
-                .map_err(|_| "invalid draft request")?
-            {
-                println!("[{}]\n{}\n", d.label, d.text);
-            }
-            println!("Offline template + local ranking preview. No insertion or sending.");
-        }
-        "memory-demo" if args.len() == 2 => {
-            let root = PathBuf::from(&args[1]);
-            fs::create_dir_all(&root)?;
-            let key = generate_key().to_bytes();
-            write_new(&root.join("memory.key"), &key, true)?;
-            let mut vault = nextime_memory::Vault::new(root.join("vault"), key)?;
-            vault.enable(true);
-            vault.grant("teacher", 86400)?;
-            vault.save(
-                "teacher",
-                "demo",
-                "明日の授業について確認する",
-                luqnexa_server::now(),
-            )?;
-            let saved = vault
-                .get("teacher", "demo", luqnexa_server::now())?
-                .ok_or("missing demonstration memory")?;
-            println!("Explicit synthetic import roundtrip: {}", saved.text);
-            vault.delete("teacher", "demo")?;
-            println!(
-                "Encrypted demo memory deleted. Demo key remains in the private demo directory."
-            );
-        }
+
         _ => help(),
     }
     Ok(())
 }
 fn help() {
     println!(
-        "Luqnexa Phase 4/5 prototypes\nkeygen DIR\npublish SOURCE.nud NEW_RELEASE_DIR VERSION [BASE.nud]\nserve RELEASE_DIR PUBLIC.key [127.0.0.1:PORT]\ninstall ISOLATED_STORE PUBLIC.key MANIFEST.json ARTIFACT full|delta\nrollback ISOLATED_STORE PUBLIC.key\nassist RECIPIENT DAY [REASON]\nmemory-demo NEW_PRIVATE_DEMO_DIR\nNo automatic cloud requests, app history collection, IME installation or sending."
+        "Luqnexa Phase 4/5 prototypes\nkeygen DIR\npublish SOURCE.nud NEW_RELEASE_DIR VERSION [BASE.nud]\nserve RELEASE_DIR PUBLIC.key [127.0.0.1:PORT]\ninstall ISOLATED_STORE PUBLIC.key MANIFEST.json ARTIFACT full|delta\nrollback ISOLATED_STORE PUBLIC.key\nNo automatic cloud requests, app history collection, IME installation or sending."
     );
 }

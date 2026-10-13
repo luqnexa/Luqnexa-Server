@@ -16,7 +16,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python scripts/test-auto-train-aozora.py
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
@@ -24,7 +23,4 @@ jobs:
       - run: cargo clippy --workspace --all-targets --locked -- -D warnings
       - run: cargo test --workspace --locked
       - run: cargo build --workspace --release --locked
-      - name: Signed dictionary update and offline assistance demo
-        if: runner.os == 'Windows'
-        run: ./scripts/test-phase45.ps1
       - run: cargo bench -p luqnexa-server --bench services --locked

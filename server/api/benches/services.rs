@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 //! Standalone service costs; these are not IME conversion timings.
-use nextime_ai::assist::{Assistant, DeviceBudget};
-use nextime_memory::Vault;
 use nextime_security::{Manifest, SignedManifest, generate_key, sha256};
 use std::{hint::black_box, time::Instant};
 
@@ -38,31 +36,12 @@ fn main() {
     )
     .unwrap();
     let public = key.verifying_key();
-    let directory = tempfile::tempdir().unwrap();
-    let mut vault = Vault::new(directory.path(), generate_key().to_bytes()).unwrap();
-    vault.enable(true);
-    vault.grant("synthetic", 60).unwrap();
-    let mut assistant = Assistant::new(DeviceBudget::Low);
-    assistant.enable(true);
     let results = vec![
         measure("sha256_32kib", || {
             black_box(sha256(black_box(&bytes)));
         }),
         measure("ed25519_manifest_verify", || {
             signed.verify(black_box(&public), 150).unwrap();
-        }),
-        measure("encrypted_memory_save_get_with_fsync", || {
-            vault
-                .save("synthetic", "sample", "合成データのみ", 100)
-                .unwrap();
-            black_box(vault.get("synthetic", "sample", 101).unwrap());
-        }),
-        measure("offline_absence_drafts", || {
-            black_box(
-                assistant
-                    .absence_email("先生", "明日", "体調不良", "", false)
-                    .unwrap(),
-            );
         }),
     ];
     println!(
